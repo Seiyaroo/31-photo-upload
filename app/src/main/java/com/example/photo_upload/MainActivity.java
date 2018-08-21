@@ -20,6 +20,7 @@ import static android.Manifest.permission.CALL_PHONE;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.imageView)
     ImageView mImageView;
+    private int REQUEST_CHECK_PHONE_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
         String number = "1-555-pizza";
         String message = "Wow, I didn't know this place existed!";
 
-        Uri uri = Uri.parse("tel:1-206-867-5309");
-        Intent intent = new Intent(Intent.ACTION_SEND, uri);
-        startActivity(intent);
+        Uri uri = Uri.parse("smsto:" + number);
+        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+        it.putExtra("sms_body", message);
+        startActivity(it);
     }
 
     @OnClick(R.id.setAlarm)
@@ -60,4 +62,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.callPhone)
+    public void callJenny() {
+        String number = "1-206-867-5309";
+        Uri uri = Uri.parse("tel:" + number);
+        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+             startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_CHECK_PHONE_PERMISSION);
+        }
+    }
 }
