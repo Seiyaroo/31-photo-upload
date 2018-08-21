@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">photo-upload</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="send_text">Send Text</string>
+    <string name="call_phone">Call Phone</string>
+    <string name="open_maps">Open Maps</string>
+    <string name="send_email">Send Email</string>
+    <string name="set_alarm">Set Alarm</string>
+</resources>
